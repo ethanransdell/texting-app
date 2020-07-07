@@ -1,6 +1,8 @@
 # Texting App
 Ethan Ransdell - [Portfolio](http://ethanransdell.com) - [LinkedIn](https://www.linkedin.com/in/EthanRansdell)
 
+<img src="https://github.com/ethanransdell/texting-app/raw/master/texting-app.png">
+
 ## About
 
 This application showcases pieces these particular features:

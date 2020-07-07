@@ -37672,7 +37672,7 @@ var render = function() {
           type: "tel",
           pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}",
           maxlength: "13",
-          placeholder: "000-000-0000"
+          placeholder: "###-###-####"
         },
         domProps: { value: _vm.to },
         on: {
