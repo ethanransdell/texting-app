@@ -1,0 +1,31 @@
+{
+    "name": "ethanransdell/text-messaging",
+    "type": "library",
+    "require": {
+        "twilio/sdk": "^6.8"
+    },
+    "authors": [
+        {
+            "name": "Ethan Ransdell",
+            "email": "ethan@ethanransdell.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "TextMessaging\\": [
+                "src/"
+            ]
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TextMessaging\\TextMessagingServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.2",
+        "illuminate/support": "^7.18"
+    }
+}
