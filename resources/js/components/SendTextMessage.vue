@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <label for="to">To</label>
-            <input v-model="to" type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="13" placeholder="000-000-0000">
+            <input v-model="to" type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="13" placeholder="###-###-####">
         </div>
         <div class="form-group">
             <label for="body">Body</label>
