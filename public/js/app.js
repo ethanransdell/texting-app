@@ -1942,13 +1942,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.sending = true;
-      axios.post('/api/text-messaging', {
+      axios.post('/api/text-messaging/send', {
         to: this.to,
         body: this.body
       }).then(function (response) {
-        _this.$emit('sent', new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__["default"](response.data)); // alert('The text message has been sent')
-        // this.reset()
+        _this.$emit('sent', new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__["default"](response.data));
 
+        alert('The text message has been sent');
+
+        _this.reset();
       })["catch"](function (err) {
         return alert(err.response.data.message);
       })["finally"](function () {
@@ -2055,6 +2057,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SendTextMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SendTextMessage */ "./resources/js/components/SendTextMessage.vue");
 /* harmony import */ var _SentTextMessages__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SentTextMessages */ "./resources/js/components/SentTextMessages.vue");
+/* harmony import */ var _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../models/TextMessageModel */ "./resources/js/models/TextMessageModel.js");
 //
 //
 //
@@ -2080,6 +2083,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2092,10 +2096,20 @@ __webpack_require__.r(__webpack_exports__);
       sentTextMessages: []
     };
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/text-messaging').then(function (response) {
+      return _this.sentTextMessages = response.data.map(function (textMessage) {
+        return new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_2__["default"](textMessage);
+      });
+    })["catch"](function (err) {
+      return alert(err.response.data.message);
+    });
+  },
   methods: {
     addSentTextMessage: function addSentTextMessage(message) {
-      this.sentTextMessages.push(message);
-      console.log(this.sentTextMessages);
+      this.sentTextMessages.unshift(message);
     }
   }
 });
@@ -37765,7 +37779,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("ID")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Message ID")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("From")]),
         _vm._v(" "),
@@ -37798,8 +37812,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("td", { attrs: { title: _vm.textMessage.id } }, [
-      _vm._v(_vm._s(_vm.textMessage.id.substring(0, 5)) + "...")
+    _c("td", { attrs: { title: _vm.textMessage.message_id } }, [
+      _vm._v(_vm._s(_vm.textMessage.message_id.substring(0, 5)) + "...")
     ]),
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.textMessage.from))]),
@@ -50449,6 +50463,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var TextMessageModel = function TextMessageModel() {
   var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     id: null,
+    message_id: null,
     from: null,
     to: null,
     body: null
@@ -50457,6 +50472,7 @@ var TextMessageModel = function TextMessageModel() {
   _classCallCheck(this, TextMessageModel);
 
   this.id = data.id;
+  this.message_id = data.message_id;
   this.from = data.from;
   this.to = data.to;
   this.body = data.body;

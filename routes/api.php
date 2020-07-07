@@ -2,8 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => '/text-messaging',
+], function () {
 
-    Route::post('/text-messaging', 'TextMessagingController@send');
+    Route::get('/', 'TextMessagingController@all');
+
+    Route::post('/send', 'TextMessagingController@send');
 
 });

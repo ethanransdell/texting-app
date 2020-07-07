@@ -2,12 +2,10 @@
 
 namespace TextMessaging;
 
-use Illuminate\Contracts\Support\Arrayable;
-
-class TextMessageModel implements Arrayable
+class TextMessageModel
 {
     /** @var string */
-    public $id;
+    public $messageId;
 
     /** @var string */
     public $to;
@@ -17,14 +15,4 @@ class TextMessageModel implements Arrayable
 
     /** @var string */
     public $body;
-
-    public function toArray()
-    {
-        return [
-            'id'   => $this->id,
-            'to'   => $this->to,
-            'from' => $this->from,
-            'body' => $this->body,
-        ];
-    }
 }

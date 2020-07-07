@@ -26,6 +26,7 @@
 <script>
     import SendTextMessage from './SendTextMessage'
     import SentTextMessages from './SentTextMessages'
+    import TextMessageModel from '../models/TextMessageModel'
 
     export default {
         components: {
@@ -37,10 +38,16 @@
             sentTextMessages: []
         }),
 
+        mounted() {
+            axios
+                .get('/api/text-messaging')
+                .then(response => this.sentTextMessages = response.data.map(textMessage => new TextMessageModel(textMessage)))
+                .catch(err => alert(err.response.data.message))
+        },
+
         methods: {
             addSentTextMessage(message) {
-                this.sentTextMessages.push(message)
-                console.log(this.sentTextMessages)
+                this.sentTextMessages.unshift(message)
             }
         }
     }

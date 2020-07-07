@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td :title="textMessage.id">{{ textMessage.id.substring(0, 5) }}...</td>
+        <td :title="textMessage.message_id">{{ textMessage.message_id.substring(0, 5) }}...</td>
         <td>{{ textMessage.from }}</td>
         <td>{{ textMessage.to }}</td>
         <td>

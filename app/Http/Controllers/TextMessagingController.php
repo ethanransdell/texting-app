@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\TextMessage;
 use Illuminate\Http\Request;
 use TextMessaging\TextMessagingInterface;
 
 class TextMessagingController extends Controller
 {
+    public function all()
+    {
+        return TextMessage::query()
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+
     public function send(Request $request, TextMessagingInterface $textMessaging)
     {
         $request->validate([
@@ -23,6 +31,13 @@ class TextMessagingController extends Controller
             ],
         ]);
 
-        return $textMessaging->send($request->input('to'), $request->input('body'));
+        $message = $textMessaging->send($request->input('to'), $request->input('body'));
+
+        return TextMessage::create([
+            'message_id' => $message->messageId,
+            'to'         => $message->to,
+            'from'       => $message->from,
+            'body'       => $message->body,
+        ]);
     }
 }

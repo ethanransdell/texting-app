@@ -37,16 +37,16 @@
                 this.sending = true
 
                 axios
-                    .post('/api/text-messaging', {
+                    .post('/api/text-messaging/send', {
                         to: this.to,
                         body: this.body
                     })
                     .then(response => {
                         this.$emit('sent', new TextMessageModel(response.data))
 
-                        // alert('The text message has been sent')
+                        alert('The text message has been sent')
 
-                        // this.reset()
+                        this.reset()
                     })
                     .catch(err => alert(err.response.data.message))
                     .finally(() => this.sending = false)

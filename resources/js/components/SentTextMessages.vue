@@ -2,7 +2,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Message ID</th>
             <th scope="col">From</th>
             <th scope="col">To</th>
             <th scope="col">Body</th>
