@@ -32,8 +32,11 @@ This application showcases pieces these particular features:
 
 ## Setup
 
-- Install [Docker](https://docs.docker.com/get-docker)
-- Sign up for a [Twilio account](https://www.twilio.com/try-twilio)
+- [Install Docker](https://docs.docker.com/get-docker)
+- [Sign up for a Twilio account](https://www.twilio.com/try-twilio)
+- Optional: If you wish to test Twilio live, do the following:
+    - [Verify your personal SMS number](https://www.twilio.com/console/phone-numbers/verified)
+    - [Purchase an outgoing SMS number](https://www.twilio.com/console/phone-numbers/search)
 - Clone this repository and set up the environment
     - `git clone --recurse-submodules git@github.com:ethanransdell/texting-app.git`
     - `cd texting-app`
