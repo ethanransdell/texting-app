@@ -1934,7 +1934,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     valid: function valid() {
-      return this.to && this.to.length <= 13 && this.to.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}/) && this.body && this.body.length <= 255;
+      return this.to && this.to.length <= 13 && this.to.match(/[0-9]{10}/) && this.body && this.body.length <= 255;
     }
   },
   methods: {
@@ -37670,9 +37670,10 @@ var render = function() {
         staticClass: "form-control",
         attrs: {
           type: "tel",
-          pattern: "[0-9]{3}-[0-9]{3}-[0-9]{4}",
-          maxlength: "13",
-          placeholder: "###-###-####"
+          pattern: "[0-9]{10}",
+          minlength: "10",
+          maxlength: "10",
+          placeholder: "##########"
         },
         domProps: { value: _vm.to },
         on: {

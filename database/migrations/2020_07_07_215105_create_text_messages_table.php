@@ -14,7 +14,15 @@ class CreateTextMessagesTable extends Migration
             $table->string('to');
             $table->string('from');
             $table->string('body');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+        });
+
+        Schema::table('text_messages', function (Blueprint $table) {
+            $table
+                ->foreign('user_id', 'text_messages_user_id_foreign')
+                ->references('id')
+                ->on('users');
         });
     }
 

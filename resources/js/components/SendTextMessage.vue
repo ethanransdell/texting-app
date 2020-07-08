@@ -2,7 +2,7 @@
     <div>
         <div class="form-group">
             <label for="to">To</label>
-            <input v-model="to" type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" maxlength="13" placeholder="###-###-####">
+            <input v-model="to" type="tel" class="form-control" pattern="[0-9]{10}" minlength="10" maxlength="10" placeholder="##########">
         </div>
         <div class="form-group">
             <label for="body">Body</label>
@@ -26,7 +26,7 @@
             valid: function () {
                 return this.to
                     && this.to.length <= 13
-                    && this.to.match(/[0-9]{3}-[0-9]{3}-[0-9]{4}/)
+                    && this.to.match(/[0-9]{10}/)
                     && this.body
                     && this.body.length <= 255
             }

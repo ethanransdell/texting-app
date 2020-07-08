@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\TextMessage
  *
- * @property int $id
- * @property string $message_id
- * @property string $to
- * @property string $from
- * @property string $body
+ * @property int                             $id
+ * @property string                          $message_id
+ * @property string                          $to
+ * @property string                          $from
+ * @property string                          $body
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\TextMessage newModelQuery()
@@ -29,4 +29,9 @@ use Illuminate\Database\Eloquent\Model;
 class TextMessage extends Model
 {
     protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

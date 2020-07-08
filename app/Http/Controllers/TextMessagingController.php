@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\TextMessage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use TextMessaging\TextMessagingInterface;
 
 class TextMessagingController extends Controller
 {
     public function all()
     {
-        return TextMessage::query()
+        return Auth::user()
+            ->textMessages()
             ->orderBy('created_at', 'desc')
             ->get();
     }
@@ -21,8 +23,8 @@ class TextMessagingController extends Controller
             'to'   => [
                 'required',
                 'string',
-                'max:13',
-                'regex:/[0-9]{3}-[0-9]{3}-[0-9]{4}/',
+                'size:10',
+                'regex:/[0-9]{10}/',
             ],
             'body' => [
                 'required',
@@ -31,13 +33,19 @@ class TextMessagingController extends Controller
             ],
         ]);
 
-        $message = $textMessaging->send($request->input('to'), $request->input('body'));
+        $messageDto = $textMessaging->send($request->input('to'), $request->input('body'));
 
-        return TextMessage::create([
-            'message_id' => $message->messageId,
-            'to'         => $message->to,
-            'from'       => $message->from,
-            'body'       => $message->body,
+        $textMessage = TextMessage::make([
+            'message_id' => $messageDto->messageId,
+            'to'         => $messageDto->to,
+            'from'       => $messageDto->from,
+            'body'       => $messageDto->body,
         ]);
+
+        Auth::user()
+            ->textMessages()
+            ->save($textMessage);
+
+        return $textMessage;
     }
 }

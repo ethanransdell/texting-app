@@ -51,6 +51,8 @@ This application showcases pieces these particular features:
     - `composer install`
     - `npm install`
     - `php artisan key:generate`
+    - `php artisan vendor:publish --provider=TextMessaging\\TextMessagingServiceProvider`
+    - `php artisan migrate`
     - `npm run dev`
 
 ## License

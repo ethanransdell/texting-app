@@ -20,24 +20,32 @@ class TextMessagingControllerTest extends TestCase
 
     public function testAll()
     {
-        /** @var TextMessage $message */
-        $message = factory(TextMessage::class)->create();
+        /** @var User $user */
+        $user = factory(User::class)->create();
+
+        /** @var TextMessage $textMessage */
+        $textMessage = factory(TextMessage::class)->make();
+
+        $user
+            ->textMessages()
+            ->save($textMessage);
 
         $response = $this
-            ->actingAs(factory(User::class)->create())
+            ->actingAs($user)
             ->get('/api/text-messaging');
 
         $response
             ->assertSuccessful()
             ->assertJson([
                 [
-                    'id'         => $message->id,
-                    'message_id' => $message->message_id,
-                    'to'         => $message->to,
-                    'from'       => $message->from,
-                    'body'       => $message->body,
-                    'created_at' => $message->created_at->toISOString(),
-                    'updated_at' => $message->updated_at->toISOString(),
+                    'id'         => $textMessage->id,
+                    'message_id' => $textMessage->message_id,
+                    'to'         => $textMessage->to,
+                    'from'       => $textMessage->from,
+                    'body'       => $textMessage->body,
+                    'user_id'    => $user->id,
+                    'created_at' => $textMessage->created_at->toISOString(),
+                    'updated_at' => $textMessage->updated_at->toISOString(),
                 ],
             ]);
     }
