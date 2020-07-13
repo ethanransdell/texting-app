@@ -6,6 +6,7 @@
             <th scope="col">From</th>
             <th scope="col">To</th>
             <th scope="col">Body</th>
+            <th scope="col">Service Name</th>
         </tr>
         </thead>
         <tbody>

@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\TextMessage;
 use App\User;
+use Illuminate\Support\Str;
 use Mockery;
 use Tests\TestCase;
 use TextMessaging\TextMessageModel;
@@ -43,7 +44,7 @@ class TextMessagingControllerTest extends TestCase
                     'to'         => $textMessage->to,
                     'from'       => $textMessage->from,
                     'body'       => $textMessage->body,
-                    'user_id'    => $user->id,
+                    'user_id'    => (int)$user->id,
                     'created_at' => $textMessage->created_at->toISOString(),
                     'updated_at' => $textMessage->updated_at->toISOString(),
                 ],
@@ -63,21 +64,34 @@ class TextMessagingControllerTest extends TestCase
         $messageDto->body = $messageData['body'];
 
         $textMessaging = Mockery::mock(TextMessagingInterface::class);
+
         $textMessaging
             ->shouldReceive('send')
             ->once()
             ->andReturn($messageDto);
 
+        $serviceName = Str::random();
+
+        $textMessaging
+            ->shouldReceive('getServiceName')
+            ->twice()
+            ->andReturn($serviceName);
+
         $this->instance(TextMessagingInterface::class, $textMessaging);
 
+        $user = factory(User::class)->create();
+
         $response = $this
-            ->actingAs(factory(User::class)->create())
+            ->actingAs($user)
             ->post('/api/text-messaging/send', $messageData);
 
         /** @var TextMessage $textMessage */
         $textMessage = TextMessage::query()
             ->where('message_id', '=', $messageData['message_id'])
             ->first();
+
+        $messageData['user_id'] = $user->id;
+        $messageData['service_name'] = $textMessaging->getServiceName();
 
         $response
             ->assertSuccessful()

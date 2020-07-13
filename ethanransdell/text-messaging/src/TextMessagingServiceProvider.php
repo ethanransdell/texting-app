@@ -27,6 +27,17 @@ class TextMessagingServiceProvider extends ServiceProvider
                     );
 
                     break;
+
+                case 'nexmo':
+
+                    return new NexmoTextMessaging(
+                        config('text-messaging.connections.nexmo.key'),
+                        config('text-messaging.connections.nexmo.secret'),
+                        config('text-messaging.connections.nexmo.from')
+                    );
+
+                    break;
+
                 default:
                     throw new Exception('No text messaging service specified');
             }

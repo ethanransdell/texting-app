@@ -3,7 +3,8 @@
     "type": "library",
     "require": {
         "twilio/sdk": "^6.8",
-        "illuminate/support": "^7.19"
+        "illuminate/support": "^7.19",
+        "nexmo/client": "^2.0"
     },
     "authors": [
         {

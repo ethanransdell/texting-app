@@ -10,16 +10,16 @@ class TextMessageModelTest extends TestCase
     {
         $textMessage = new TextMessageModel();
 
-        $textMessage->id = Str::random();
+        $textMessage->messageId = Str::random();
         $textMessage->from = Str::random();
         $textMessage->to = Str::random();
         $textMessage->body = Str::random();
 
         $this->assertEquals([
-            'id'   => $textMessage->id,
-            'to'   => $textMessage->to,
-            'from' => $textMessage->from,
-            'body' => $textMessage->body,
+            'messageId' => $textMessage->messageId,
+            'to'        => $textMessage->to,
+            'from'      => $textMessage->from,
+            'body'      => $textMessage->body,
         ], (array)$textMessage);
     }
 }

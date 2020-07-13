@@ -9,5 +9,11 @@ return [
             'token' => env('TWILIO_TOKEN'),
             'from'  => env('TWILIO_FROM'),
         ],
+
+        'nexmo' => [
+            'key'    => env('NEXMO_API_KEY'),
+            'secret' => env('NEXMO_API_SECRET'),
+            'from'   => env('NEXMO_FROM'),
+        ],
     ],
 ];

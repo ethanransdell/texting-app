@@ -6,6 +6,7 @@
         <td>
             <p>{{ textMessage.body }}</p>
         </td>
+        <td>{{ textMessage.service_name }}</td>
     </tr>
 </template>
 

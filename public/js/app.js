@@ -1998,6 +1998,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2023,6 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/TextMessageModel */ "./resources/js/models/TextMessageModel.js");
+//
 //
 //
 //
@@ -37786,7 +37788,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("To")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Body")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Body")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Service Name")])
       ])
     ])
   }
@@ -37821,7 +37825,9 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_vm._v(_vm._s(_vm.textMessage.to))]),
     _vm._v(" "),
-    _c("td", [_c("p", [_vm._v(_vm._s(_vm.textMessage.body))])])
+    _c("td", [_c("p", [_vm._v(_vm._s(_vm.textMessage.body))])]),
+    _vm._v(" "),
+    _c("td", [_vm._v(_vm._s(_vm.textMessage.service_name))])
   ])
 }
 var staticRenderFns = []
@@ -50467,7 +50473,8 @@ var TextMessageModel = function TextMessageModel() {
     message_id: null,
     from: null,
     to: null,
-    body: null
+    body: null,
+    service_name: null
   };
 
   _classCallCheck(this, TextMessageModel);
@@ -50477,6 +50484,7 @@ var TextMessageModel = function TextMessageModel() {
   this.from = data.from;
   this.to = data.to;
   this.body = data.body;
+  this.service_name = data.service_name;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TextMessageModel);

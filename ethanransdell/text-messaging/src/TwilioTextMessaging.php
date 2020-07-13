@@ -30,9 +30,9 @@ class TwilioTextMessaging implements TextMessagingInterface
 
         $textMessage = new TextMessageModel();
         $textMessage->messageId = $message->sid;
-        $textMessage->from = $message->from;
-        $textMessage->to = $message->to;
-        $textMessage->body = $message->body;
+        $textMessage->from = substr($message->from, -10);
+        $textMessage->to = substr($message->to, -10);
+        $textMessage->body = $body;
 
         return $textMessage;
     }
