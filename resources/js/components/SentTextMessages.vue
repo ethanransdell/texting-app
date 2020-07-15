@@ -11,7 +11,7 @@
         </thead>
         <tbody>
         <tr v-if="!textMessages.length">
-            <td colspan="4" class="text-center">None Found</td>
+            <td colspan="5" class="text-center">None Found</td>
         </tr>
         <text-message-row
             v-for="(textMessage, index) in textMessages"

@@ -4,7 +4,7 @@ namespace TextMessaging;
 
 interface TextMessagingInterface
 {
-    public function getServiceName(): string;
+    public static function getServiceName(): string;
 
     public function send(string $number, string $message): TextMessageModel;
 }

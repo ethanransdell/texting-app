@@ -21,6 +21,11 @@ class NexmoTextMessaging implements TextMessagingInterface
         $this->from = $from;
     }
 
+    public static function getServiceName(): string
+    {
+        return 'nexmo';
+    }
+
     public function send(string $number, string $body): TextMessageModel
     {
         $message = new Text('1' . $number, $this->from, $body);
@@ -36,10 +41,5 @@ class NexmoTextMessaging implements TextMessagingInterface
         $textMessage->body = $body;
 
         return $textMessage;
-    }
-
-    public function getServiceName(): string
-    {
-        return 'nexmo';
     }
 }

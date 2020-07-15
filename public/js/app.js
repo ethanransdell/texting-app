@@ -2113,7 +2113,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addSentTextMessage: function addSentTextMessage(message) {
-      console.log(message);
       this.sentTextMessages.unshift(message);
     }
   }
@@ -37761,7 +37760,7 @@ var render = function() {
           ? _c("tr", [
               _c(
                 "td",
-                { staticClass: "text-center", attrs: { colspan: "4" } },
+                { staticClass: "text-center", attrs: { colspan: "5" } },
                 [_vm._v("None Found")]
               )
             ])

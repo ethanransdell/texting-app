@@ -19,6 +19,11 @@ class TwilioTextMessaging implements TextMessagingInterface
         $this->from = $from;
     }
 
+    public static function getServiceName(): string
+    {
+        return 'twilio';
+    }
+
     public function send(string $number, string $body): TextMessageModel
     {
         $message = $this->client
@@ -35,10 +40,5 @@ class TwilioTextMessaging implements TextMessagingInterface
         $textMessage->body = $body;
 
         return $textMessage;
-    }
-
-    public function getServiceName(): string
-    {
-        return 'twilio';
     }
 }

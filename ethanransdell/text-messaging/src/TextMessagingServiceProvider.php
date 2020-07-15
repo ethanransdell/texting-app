@@ -18,7 +18,7 @@ class TextMessagingServiceProvider extends ServiceProvider
     {
         $this->app->singleton(TextMessagingInterface::class, function () {
             switch (config('text-messaging.default')) {
-                case 'twilio':
+                case TwilioTextMessaging::getServiceName():
 
                     return new TwilioTextMessaging(
                         config('text-messaging.connections.twilio.sid'),
@@ -28,7 +28,7 @@ class TextMessagingServiceProvider extends ServiceProvider
 
                     break;
 
-                case 'nexmo':
+                case NexmoTextMessaging::getServiceName():
 
                     return new NexmoTextMessaging(
                         config('text-messaging.connections.nexmo.key'),
