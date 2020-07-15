@@ -37,4 +37,9 @@ class NexmoTextMessaging implements TextMessagingInterface
 
         return $textMessage;
     }
+
+    public function getServiceName(): string
+    {
+        return 'nexmo';
+    }
 }

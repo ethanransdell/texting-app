@@ -42,6 +42,7 @@
                         body: this.body
                     })
                     .then(response => {
+                        console.log(response)
                         this.$emit('sent', new TextMessageModel(response.data))
 
                         alert('The text message has been sent')

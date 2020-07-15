@@ -36,4 +36,9 @@ class TwilioTextMessaging implements TextMessagingInterface
 
         return $textMessage;
     }
+
+    public function getServiceName(): string
+    {
+        return 'twilio';
+    }
 }

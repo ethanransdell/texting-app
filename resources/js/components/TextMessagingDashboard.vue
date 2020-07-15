@@ -47,6 +47,7 @@
 
         methods: {
             addSentTextMessage(message) {
+                console.log(message)
                 this.sentTextMessages.unshift(message)
             }
         }

@@ -1946,6 +1946,8 @@ __webpack_require__.r(__webpack_exports__);
         to: this.to,
         body: this.body
       }).then(function (response) {
+        console.log(response);
+
         _this.$emit('sent', new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__["default"](response.data));
 
         alert('The text message has been sent');
@@ -2111,6 +2113,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addSentTextMessage: function addSentTextMessage(message) {
+      console.log(message);
       this.sentTextMessages.unshift(message);
     }
   }

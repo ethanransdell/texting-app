@@ -9,6 +9,8 @@ class TextMessageResource extends JsonResource
 {
     public function __construct(TextMessage $resource)
     {
+        JsonResource::withoutWrapping();
+
         parent::__construct($resource);
     }
 
