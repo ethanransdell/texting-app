@@ -42,4 +42,9 @@ class NexmoTextMessaging implements TextMessagingInterface
 
         return $textMessage;
     }
+
+    public function get(string $mesasageId): TextMessageModel
+    {
+        // TODO: Implement get() method.
+    }
 }

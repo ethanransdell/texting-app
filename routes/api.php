@@ -11,4 +11,6 @@ Route::group([
 
     Route::post('/send', 'TextMessagingController@send');
 
+    Route::post('/{textMessage}/refresh', 'TextMessagingController@refresh');
+
 });

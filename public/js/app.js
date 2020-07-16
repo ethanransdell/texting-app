@@ -1946,8 +1946,6 @@ __webpack_require__.r(__webpack_exports__);
         to: this.to,
         body: this.body
       }).then(function (response) {
-        console.log(response);
-
         _this.$emit('sent', new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__["default"](response.data));
 
         alert('The text message has been sent');
@@ -1978,6 +1976,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TextMessageRow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TextMessageRow */ "./resources/js/components/TextMessageRow.vue");
+/* harmony import */ var _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/TextMessageModel */ "./resources/js/models/TextMessageModel.js");
+//
+//
+//
 //
 //
 //
@@ -2002,6 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     TextMessageRow: _TextMessageRow__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2010,6 +2013,17 @@ __webpack_require__.r(__webpack_exports__);
     textMessages: {
       type: Array,
       "default": []
+    }
+  },
+  methods: {
+    refresh: function refresh(textMessage) {
+      var _this = this;
+
+      axios.post('/api/text-messaging/' + textMessage.id + '/refresh').then(function (response) {
+        return Vue.set(_this.textMessages, _this.textMessages.indexOf(textMessage), new _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_1__["default"](response.data));
+      })["catch"](function (err) {
+        return alert(err.response.data.message);
+      });
     }
   }
 });
@@ -2026,6 +2040,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _models_TextMessageModel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/TextMessageModel */ "./resources/js/models/TextMessageModel.js");
+//
+//
+//
+//
 //
 //
 //
@@ -37760,7 +37778,7 @@ var render = function() {
           ? _c("tr", [
               _c(
                 "td",
-                { staticClass: "text-center", attrs: { colspan: "5" } },
+                { staticClass: "text-center", attrs: { colspan: "6" } },
                 [_vm._v("None Found")]
               )
             ])
@@ -37769,7 +37787,8 @@ var render = function() {
         _vm._l(_vm.textMessages, function(textMessage, index) {
           return _c("text-message-row", {
             key: index,
-            attrs: { "text-message": textMessage }
+            attrs: { "text-message": textMessage },
+            on: { refresh: _vm.refresh }
           })
         })
       ],
@@ -37792,7 +37811,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Body")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Service Name")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Service Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Refresh")])
       ])
     ])
   }
@@ -37829,7 +37852,24 @@ var render = function() {
     _vm._v(" "),
     _c("td", [_c("p", [_vm._v(_vm._s(_vm.textMessage.body))])]),
     _vm._v(" "),
-    _c("td", [_vm._v(_vm._s(_vm.textMessage.service_name))])
+    _c("td", [_vm._v(_vm._s(_vm.textMessage.service_name))]),
+    _vm._v(" "),
+    _c("td", [_vm._v(_vm._s(_vm.textMessage.status))]),
+    _vm._v(" "),
+    _c("td", [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-sm btn-primary",
+          on: {
+            click: function($event) {
+              return _vm.$emit("refresh", _vm.textMessage)
+            }
+          }
+        },
+        [_vm._v("Click...")]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -50476,7 +50516,8 @@ var TextMessageModel = function TextMessageModel() {
     from: null,
     to: null,
     body: null,
-    service_name: null
+    service_name: null,
+    status: null
   };
 
   _classCallCheck(this, TextMessageModel);
@@ -50487,6 +50528,7 @@ var TextMessageModel = function TextMessageModel() {
   this.to = data.to;
   this.body = data.body;
   this.service_name = data.service_name;
+  this.status = data.status;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (TextMessageModel);

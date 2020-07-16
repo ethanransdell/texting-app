@@ -45,11 +45,33 @@ class TextMessagingController extends Controller
             'from'         => $messageDto->from,
             'body'         => $messageDto->body,
             'service_name' => $textMessaging->getServiceName(),
+            'status'       => $messageDto->status,
         ]);
 
         Auth::user()
             ->textMessages()
             ->save($textMessage);
+
+        return new TextMessageResource($textMessage);
+    }
+
+    public function refresh(TextMessage $textMessage, TextMessagingInterface $textMessaging)
+    {
+//        $textMessage = Auth::user()
+//            ->textMessages()
+//            ->where('message_id', '=', $messageId)
+//            ->firstOrFail();
+
+        $messageDto = $textMessaging->get($textMessage->message_id);
+
+        $textMessage->update([
+            'message_id'   => $messageDto->messageId,
+            'to'           => $messageDto->to,
+            'from'         => $messageDto->from,
+            'body'         => $messageDto->body,
+            'service_name' => $textMessaging->getServiceName(),
+            'status'       => $messageDto->status,
+        ]);
 
         return new TextMessageResource($textMessage);
     }

@@ -7,6 +7,10 @@
             <p>{{ textMessage.body }}</p>
         </td>
         <td>{{ textMessage.service_name }}</td>
+        <td>{{ textMessage.status }}</td>
+        <td>
+            <button class="btn btn-sm btn-primary" @click="$emit('refresh', textMessage)">Click...</button>
+        </td>
     </tr>
 </template>
 

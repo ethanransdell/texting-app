@@ -15,4 +15,7 @@ class TextMessageModel
 
     /** @var string */
     public $body;
+
+    /** @var string */
+    public $status;
 }

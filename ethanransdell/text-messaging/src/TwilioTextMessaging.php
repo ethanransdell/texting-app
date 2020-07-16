@@ -2,6 +2,7 @@
 
 namespace TextMessaging;
 
+use Twilio\Rest\Api\V2010\Account\MessageInstance;
 use Twilio\Rest\Client;
 
 class TwilioTextMessaging implements TextMessagingInterface
@@ -33,11 +34,27 @@ class TwilioTextMessaging implements TextMessagingInterface
                 'body' => $body,
             ]);
 
+        return $this->buildTextMessage($message);
+    }
+
+    public function get(string $mesasageId): TextMessageModel
+    {
+        $message = $this
+            ->client
+            ->messages($mesasageId)
+            ->fetch();
+
+        return $this->buildTextMessage($message);
+    }
+
+    private function buildTextMessage(MessageInstance $message): TextMessageModel
+    {
         $textMessage = new TextMessageModel();
         $textMessage->messageId = $message->sid;
         $textMessage->from = substr($message->from, -10);
         $textMessage->to = substr($message->to, -10);
-        $textMessage->body = $body;
+        $textMessage->body = $message->body;
+        $textMessage->status = $message->status;
 
         return $textMessage;
     }

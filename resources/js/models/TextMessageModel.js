@@ -5,7 +5,8 @@ class TextMessageModel {
         from: null,
         to: null,
         body: null,
-        service_name: null
+        service_name: null,
+        status: null
     }) {
         this.id = data.id
         this.message_id = data.message_id
@@ -13,6 +14,7 @@ class TextMessageModel {
         this.to = data.to
         this.body = data.body
         this.service_name = data.service_name
+        this.status = data.status
     }
 }
 

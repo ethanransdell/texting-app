@@ -39,14 +39,16 @@ class TextMessagingControllerTest extends TestCase
             ->assertSuccessful()
             ->assertJson([
                 [
-                    'id'         => $textMessage->id,
-                    'message_id' => $textMessage->message_id,
-                    'to'         => $textMessage->to,
-                    'from'       => $textMessage->from,
-                    'body'       => $textMessage->body,
-                    'user_id'    => (int)$user->id,
-                    'created_at' => $textMessage->created_at->toISOString(),
-                    'updated_at' => $textMessage->updated_at->toISOString(),
+                    'id'           => $textMessage->id,
+                    'message_id'   => $textMessage->message_id,
+                    'to'           => $textMessage->to,
+                    'from'         => $textMessage->from,
+                    'body'         => $textMessage->body,
+                    'user_id'      => (int)$user->id,
+                    'service_name' => $textMessage->service_name,
+                    'status'       => $textMessage->status,
+                    'created_at'   => $textMessage->created_at->toISOString(),
+                    'updated_at'   => $textMessage->updated_at->toISOString(),
                 ],
             ]);
     }
@@ -74,7 +76,6 @@ class TextMessagingControllerTest extends TestCase
 
         $textMessaging
             ->shouldReceive('getServiceName')
-            ->twice()
             ->andReturn($serviceName);
 
         $this->instance(TextMessagingInterface::class, $textMessaging);
@@ -96,5 +97,64 @@ class TextMessagingControllerTest extends TestCase
         $response
             ->assertSuccessful()
             ->assertJson($textMessage->attributesToArray());
+    }
+
+    public function testRefresh()
+    {
+        $statusOne = $this->faker->unique()->word;
+        $statusTwo = $this->faker->unique()->word;
+
+        /** @var User $user */
+        $user = factory(User::class)->create();
+
+        /** @var TextMessage $textMessage */
+        $textMessage = factory(TextMessage::class)->make(['status' => $statusOne]);
+
+        $user
+            ->textMessages()
+            ->save($textMessage);
+
+        $newDto = new TextMessageModel();
+        $newDto->messageId = $textMessage->id;
+        $newDto->to = $textMessage->to;
+        $newDto->from = $textMessage->from;
+        $newDto->body = $textMessage->body;
+        $newDto->status = $statusTwo;
+
+        $textMessaging = Mockery::mock(TextMessagingInterface::class);
+
+        $textMessaging
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn($newDto);
+
+        $textMessaging
+            ->shouldReceive('getServiceName')
+            ->andReturn($textMessage->service_name);
+
+        $this->instance(TextMessagingInterface::class, $textMessaging);
+
+        $response = $this
+            ->actingAs($user)
+            ->post('/api/text-messaging/' . $textMessage->id . '/refresh');
+
+        $textMessage = $textMessage->refresh();
+
+        $this->assertEquals($textMessage->status, $statusTwo);
+
+        $response
+            ->assertSuccessful()
+            ->assertJson([
+                'id'           => $textMessage->id,
+                'message_id'   => $textMessage->message_id,
+                'to'           => $textMessage->to,
+                'from'         => $textMessage->from,
+                'body'         => $textMessage->body,
+                'user_id'      => (int)$user->id,
+                'service_name' => $textMessage->service_name,
+                'status'       => $textMessage->status,
+                'created_at'   => $textMessage->created_at->toISOString(),
+                'updated_at'   => $textMessage->updated_at->toISOString(),
+            ]);
     }
 }

@@ -24,6 +24,7 @@ class TextMessageResource extends JsonResource
             'body'         => $this->resource->body,
             'user_id'      => $this->resource->user_id,
             'service_name' => $this->resource->service_name,
+            'status'       => $this->resource->status,
             'created_at'   => $this->resource->created_at->toISOString(),
             'updated_at'   => $this->resource->updated_at->toISOString(),
         ];
